@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import users from "./Users.js"
 
 const PaginationTable = () => {
-    const [data, setData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // Number of items to show per page
-    const totalPages = Math.ceil(data.length / itemsPerPage); // Total pages
 
-    // Fetch data from the API (JSONPlaceholder)
-    useEffect(() => {
-        fetch("https://api.escuelajs.co/api/v1/users")
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => console.log("Error fetching data:", error));
-    }, []);
+    const [data, setData] = useState(users);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10; // Number of rows per page
+    const totalPages = Math.ceil(data.length / itemsPerPage); // Total pages
 
     // Function to handle the slicing of data based on the page
     const paginatedData = data.slice(
@@ -74,6 +68,7 @@ const PaginationTable = () => {
             <h1 className="text-3xl mb-6">Pagination Table</h1>
             <h1 className="text-3xl mb-6">User details</h1>
 
+
             <table className="bg-zinc-700">
                 <thead>
                     <tr className="text-left bg-teal-600">
@@ -85,13 +80,13 @@ const PaginationTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {paginatedData.map((item) => (
-                        <tr key={item.id}>
-                            <td className="py-2 px-4 border-2">{item.id}</td>
-                            <td className="py-2 px-4 border-2">{item.name}</td>
-                            <td className="py-2 px-4 border-2">{item.email}</td>
-                            <td className="py-2 px-4 border-2">{item.password}</td>
-                            <td className="py-2 px-4 border-2">{item.role}</td>
+                    {paginatedData.map((user) => (
+                        <tr key={user.id}>
+                            <td className="py-2 px-4 border-2">{user.id}</td>
+                            <td className="py-2 px-4 border-2">{user.name}</td>
+                            <td className="py-2 px-4 border-2">{user.email}</td>
+                            <td className="py-2 px-4 border-2">{user.password}</td>
+                            <td className="py-2 px-4 border-2">{user.role}</td>
                         </tr>
                     ))}
 
